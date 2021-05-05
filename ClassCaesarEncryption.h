@@ -14,7 +14,7 @@ public:
 		/// </summary>
 		EncryptionTable[0][0] = 'à'; EncryptionTable[0][1] = 'ã';
 		//...
-		EncryptionTable[13][0] = 'ì'; EncryptionTable[0][1] = 'ï';
+		EncryptionTable[13][0] = 'ì'; EncryptionTable[13][1] = 'ï';
 		//...
 		EncryptionTable[25][0] = 'ø'; EncryptionTable[25][1] = 'û';
 	}
@@ -22,7 +22,29 @@ public:
 
 	};
 	string getEncryptionSting(string inString) {
-	
+		string outString = "";
+		for (int i = 0; i < inString.length(); i++) {
+			string tmpString = "";
+			tmpString = inString[i];
+			//cout << tmpString<<endl;
+			int numRow = getNumRowOfEncryptionTableSymbol(tmpString);
+			if (numRow > 0)
+			{
+				outString += EncryptionTable[numRow][1];
+			}
+			else
+			{
+				outString += tmpString;
+			}
+		}
+		return outString;
 	};
+
+	int getNumRowOfEncryptionTableSymbol(string ch) {
+		for (int i = 0; i < 33; i++)
+			if (strcmp(ch.c_str(), EncryptionTable[i][0].c_str())==0)
+				return i;
+		return -1;
+	}
 };
 
